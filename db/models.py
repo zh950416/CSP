@@ -40,12 +40,14 @@ class Admin(base):
         teacher_obj.save()
 
 # 学校类
+####sdsd
 
 class School(base):
     def __init__(self,name,addr):
-        self.name = name
+        self.user = name
         self.addr = addr
         self.course_list = []   # 学校对应的课程
+
 
 
 # 课程类
@@ -63,4 +65,31 @@ class Teacher(base):
         self.pwd = teacher_pwd
         self.course_list_from_tea = []
 
-### dev
+# 学生类
+class Student(base):
+    def __init__(self,user, pwd):
+        self.user = user
+        self.pwd = pwd
+        self.school = None
+        self.course_list = []
+        self.score_dict = {}
+
+    def add_school(self,school_name):
+        self.school = school_name
+        self.save()
+
+    def add_course(self,course_name):
+        self.course_list.append(course_name)
+        self.score_dict[course] = 0
+        self.save()
+
+        # 学生选择课程的课程里 添加学生
+        course_obj = Course.select(course_name)
+        course_obj.student_list.append(self.user)
+        course_obj.save()
+
+class Course(base):
+    def __init__(self, course_name):
+        self.user = course_name
+        self.student_list = []
+

@@ -1,23 +1,40 @@
 """
 老师视图
 """
+from lib import common
+from interface import common_interface
 
+teacher_info = {
+    'user':None
+}
+#登录
 def login():
-    pass
+    while True:
+        username = input('请输入账号:').strip()
+        password = input('请输入密码:').strip()
 
+    # 调用管理员登录接口
+        flag, msg = common_interface.login_interface( username, password, 'teacher')
+        if flag:
+            print(msg)
+            teacher_info['user'] = username
+            break
+        else:
+            print(msg)
 
+@common.auth('teacher')
 def check_course():
     pass
 
-
+@common.auth('teacher')
 def choose_course():
     pass
 
-
+@common.auth('teacher')
 def check_stu_from_course():
     pass
 
-
+@common.auth('teacher')
 def change_score_from_student():
     pass
 

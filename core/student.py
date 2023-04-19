@@ -1,26 +1,135 @@
 """
 学生视图
 """
+from lib import common
+from interface import student_interface
+from interface import common_interface
+student_info = {
+    'user':None
+}
 
-
+# 学生注册
 def register():
-    pass
+    while True:
+        username = input('请输入账号:').strip()
+        password = input('请输入密码:').strip()
+        re_password = input('请再一次输入密码:').strip()
+
+        if password == re_password:
+            flag, msg = student_interface.student_register_interface(username,password)
+            if flag:
+                print(msg)
+                break
+            else:
+                print(msg)
+
+        else:
+            print('两次密码不一致，请重新输入')
 
 
 def login():
-    pass
+    while True:
+        username = input('请输入账号:').strip()
+        password = input('请输入密码:').strip()
 
+    # 调用管理员登录接口
+        flag, msg = common_interface.login_interface( username, password, 'student')
+        if flag:
+            print(msg)
+            student_info['user'] = username
+            break
+        else:
+            print(msg)
 
+# 选择学校
+@common.auth('student')
 def choice_school():
-    pass
+    while True:
+    # 首先展示学校并打印
+        flag, school_list = get_all_school_interface()
+        if not flag:
+            print(school_list)
+        for index, school_name in enumerate(school_list):
+            print(f'学校编号{index} 学校名称{school_name}')
+
+        # 选择学校
+        choice = input('请输入学校编号:').strip()
+
+        choice = int(choice)
+
+        if choice not in range(len(school_list)):
+            print('编号有问题')
+            continue
+
+        school_name = school_list[choice]
+
+        # 调用接口，查看类
+
+        flag, msg = student_interface.add_student_interface(
+        school_name, student_info.get('user')
+        )
+
+        if flag:
+            print(msg)
+            break
+
+        else:
+            print(msg)
+            break
 
 
+# 选择课程
+@common.auth('student')
 def choice_course():
+    while True:
+    # 调用接口，查看属于什么学校，学校里面有什么课程，在选课
+        flag, course_list = student_interface.get_course_list(student_info.get('user'))
+
+        if not flag:
+            print('course_list')
+            break
+
+        # 打印课程 然后选择
+        for index, course_name in enumerate(course_list):
+            print(f'课程编号{index} 课程名字{course_name}')
+
+        choice = input('输入课程编号：').strip()
+        choice = int(choice)
+
+        if choice not in range(len(course_list)):
+            print('输入编号有问题')
+            choice
+
+        course_name = course_list[choice]
+
+        # 调用学生选课系统
+
+        flag, msg = student_interface.add_course_interface(
+            course_name, student_info.get('user')
+        )
+
+        if flag:
+            print(msg)
+            break
+        else:
+            print(msg)
+
+
+
+
     pass
 
-
+# 查看分数
+@common.auth('student')
 def check_score():
-    pass
+    score_dict = student_interface.check_score_interface(
+        student_info.get('user')
+    )
+
+    if not score_dict:
+        print('没有选择课程!')
+
+    print(score_dict)
 
 
 # 学生功能字典

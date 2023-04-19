@@ -5,7 +5,8 @@
 from interface import admin_interface
 from interface import student_interface
 from interface import teacher_interface
-
+from lib import common
+from interface import common_interface
 admin_info = {
     'user':None
 }
@@ -36,9 +37,7 @@ def login():
         password = input('请输入密码:').strip()
 
     # 调用管理员登录接口
-        flag, msg = admin_interface.admin_login_interface(
-            username, password
-        )
+        flag, msg = common_interface.login_interface( username, password, 'admin')
         if flag:
             print(msg)
             admin_info['user'] = username
@@ -47,6 +46,7 @@ def login():
             print(msg)
 
 
+@common.auth('admin')
 def create_school():
     # 输入学校名称，地址，创建人也要穿减去
     while True:
@@ -63,6 +63,7 @@ def create_school():
         else:
             print(msg)
 
+@common.auth('admin')
 def create_course():
     while True:
        # 获取所有学校的信息
@@ -96,7 +97,7 @@ def create_course():
         else:
             print(msg)
 
-
+@common.auth('admin')
 def create_teacher():
     while True:
         teacher_name = input('请输入老师名字：').strip()

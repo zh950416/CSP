@@ -21,18 +21,18 @@ def admin_register_interface(username, password):
     admin_obj.save()
     return True, '用户注册成功！'
 
-# 登录接口
-def admin_login_interface(username, password):
-    # 验证文件是否存在。
-    admin_obj = models.Admin.select(username)
-
-    if not admin_obj:
-        return False, '用户不存在'
-
-    if password == admin_obj.pwd:
-        return True, '用户登陆成功！'
-    else:
-        return False, '密码错误'
+# # 登录接口
+# def admin_login_interface(username, password):
+#     # 验证文件是否存在。
+#     admin_obj = models.Admin.select(username)
+#
+#     if not admin_obj:
+#         return False, '用户不存在'
+#
+#     if password == admin_obj.pwd:
+#         return True, '用户登陆成功！'
+#     else:
+#         return False, '密码错误'
 
 # 学校创建接口
 def create_school_interface(school_name, school_addr, admin_name):
