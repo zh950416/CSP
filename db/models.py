@@ -38,7 +38,7 @@ class Admin(base):
         teacher_obj = Teacher(teacher_name, teacher_pwd)
         teacher_obj.save()
 
-# 学校类
+# 学校类####
 ####sdsd
 
 class School(base):
@@ -48,7 +48,7 @@ class School(base):
         self.course_list = []   # 学校对应的课程
 
 
-
+#######
 # 课程类
 class Course(base):
     def __init__(self,course_name):
