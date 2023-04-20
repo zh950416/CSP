@@ -9,7 +9,7 @@ def auth(role):
     """
     from core import admin, student, teacher
     def login_auth(fun):
-        def inner(*arge,**kwargs):
+        def inner(*args,**kwargs):
             if role == 'admin':
                 if admin.admin_info['user']:
                     res = fun(*args, **kwargs)

@@ -46,13 +46,24 @@ def create_school_interface(school_name, school_addr, admin_name):
 
     # 如果为空，由管理员创建，并传入地址和名称
     admin_obj = models.Admin.select(admin_name)
-    admin_obj.create_school(
+    admin_obj.creat_school(
         school_name, school_addr
     )
     return True, '学校创建成功'
 
+# 创建课程
+def create_course_interface(
+            school_name, course_name ,admin_name
+        ):
+    school_obj = models.School.select(school_name)
+    if course_name in school_obj.course_list:
+        return False, '当前课程已存在!'
+
+    admin_obj = models.Admin.select(admin_name)
+    admin_obj.create_course(school_obj, course_name)
+    return True, f'[{course_name}] 课程创建成功, 绑定给[{school_name}]校区!'
 # 创建老师接口
-def creat_teacher_interface(teacher_name,admin_name,teacher_pwd='123'):
+def create_teacher_interface(teacher_name,admin_name,teacher_pwd='123'):
     teacher_obj = models.Teacher.select(teacher_name)
 
     if teacher_obj:

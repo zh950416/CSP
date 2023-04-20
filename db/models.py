@@ -21,21 +21,20 @@ class Admin(base):
         self.pwd = pwd
 
     # 创建学校
-    def creat_school(self,school_name,school_addr):
+    def create_school(self,school_name,school_addr):
         school_obj = School(school_name,school_addr)
         school_obj.save()
 
     # 创建课程
-    def creat_course(self,schoole_obj,course_name):
-        course_obj = Course(coursr_name)
+    def create_course(self,school_obj,course_name):
+        course_obj = Course(course_name)
         course_obj.save()
 
         school_obj.course_list.append(course_name)
-
-        schoole_obj.save()
+        school_obj.save()
 
     # 创建老师
-    def creat_teacher(self, teacher_name, teacher_pwd):
+    def create_teacher(self, teacher_name, teacher_pwd):
         teacher_obj = Teacher(teacher_name, teacher_pwd)
         teacher_obj.save()
 
@@ -80,7 +79,7 @@ class Student(base):
 
     def add_course(self,course_name):
         self.course_list.append(course_name)
-        self.score_dict[course] = 0
+        self.score_dict[course_name] = 0
         self.save()
 
         # 学生选择课程的课程里 添加学生

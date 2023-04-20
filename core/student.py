@@ -33,7 +33,7 @@ def login():
         password = input('请输入密码:').strip()
 
     # 调用管理员登录接口
-        flag, msg = common_interface.login_interface( username, password, 'student')
+        flag, msg = common_interface.login_interface( username, password, user_type='student')
         if flag:
             print(msg)
             student_info['user'] = username
@@ -46,7 +46,7 @@ def login():
 def choice_school():
     while True:
     # 首先展示学校并打印
-        flag, school_list = get_all_school_interface()
+        flag, school_list = common_interface.get_all_school_interface()
         if not flag:
             print(school_list)
         for index, school_name in enumerate(school_list):
@@ -65,7 +65,7 @@ def choice_school():
 
         # 调用接口，查看类
 
-        flag, msg = student_interface.add_student_interface(
+        flag, msg = student_interface.add_school_interface(
         school_name, student_info.get('user')
         )
 
@@ -83,7 +83,7 @@ def choice_school():
 def choice_course():
     while True:
     # 调用接口，查看属于什么学校，学校里面有什么课程，在选课
-        flag, course_list = student_interface.get_course_list(student_info.get('user'))
+        flag, course_list = student_interface.get_course_list_interface(student_info.get('user'))
 
         if not flag:
             print('course_list')

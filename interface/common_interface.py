@@ -3,7 +3,7 @@
 '''
 import os
 from conf import settings
-from db import models3
+from db import models
 # 获取所有学校
 def get_all_school_interface():
     school_dir = os.path.join(
@@ -21,11 +21,11 @@ def login_interface(username, password, user_type):
     if user_type == 'admin':
         obj = models.Admin.select(username)
 
-    if user_type == 'student':
-        obj = models.Admin.select(username)
+    elif user_type == 'student':
+        obj = models.Student.select(username)
 
-    if user_type == 'teacher':
-        obj = models.Admin.select(username)
+    elif user_type == 'teacher':
+        obj = models.Teacher.select(username)
 
     else:
         return False, '角色不存在'

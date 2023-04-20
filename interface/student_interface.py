@@ -14,20 +14,20 @@ def student_register_interface(username,password):
 
     if student_obj:
         return False,'用户存在'
-    student_obj =models.School(
+    student_obj =models.Student(
         username, password
     )
     student_obj.save()
     return True,'用户注册成功'
 
 # 选学校
-def add_student_interface(school_name, student_name):
-    student_obj = models.Student.select(school_name)
+def add_school_interface(school_name, student_name):
+    student_obj = models.Student.select(student_name)
 
-    if not student_obj.school:
+    if student_obj.school:
         return False, '已经存在，重新选择'
 
-    student_obj = add_student(student_name)
+    student_obj.add_school(school_name)
     return True, '学校选择成功'
 
 # 选课

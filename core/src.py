@@ -6,8 +6,8 @@ from core import teacher
 from core import student
 func_dict = {
     '1':admin.admin_view,
-    '2':teacher.teacher_view,
-    '3':student.student_view,
+    '2':student.student_view,
+    '3':teacher.teacher_view,
 }
 
 

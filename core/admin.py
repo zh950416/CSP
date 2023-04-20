@@ -86,9 +86,10 @@ def create_course():
 
         school_name = school_list_or_msg[choice]
 
+        course_name = input('请输入需要创建的课程名称： ').strip()
         # 调用创建课程接口，管理员去创建
         flag,msg = admin_interface.create_course_interface(
-            school_name, course_name ,admin_info.get('user')
+            school_name, course_name, admin_info.get('user')
         )
 
         if flag:
@@ -102,7 +103,7 @@ def create_teacher():
     while True:
         teacher_name = input('请输入老师名字：').strip()
 
-        flag,msg = teacher_interface.creat_teacher_interface(
+        flag,msg = teacher_interface.create_teacher_interface(
             teacher_name,admin_info.get('user')
         )
 
