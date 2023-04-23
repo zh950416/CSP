@@ -23,7 +23,7 @@ def auth(role):
                 else:
                     student.login()
             elif role == 'teacher':
-                if student.teacher_info['user']:
+                if teacher.teacher_info['user']:
                     res = fun(*args, **kwargs)
                     return res
                 else:

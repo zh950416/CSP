@@ -102,9 +102,10 @@ def create_course():
 def create_teacher():
     while True:
         teacher_name = input('请输入老师名字：').strip()
+        teacher_pwd = input('请输入密码:').strip()
 
-        flag,msg = teacher_interface.create_teacher_interface(
-            teacher_name,admin_info.get('user')
+        flag, msg = admin_interface.create_teacher_interface(
+            teacher_name, teacher_pwd, admin_info.get('user')
         )
 
         if flag:

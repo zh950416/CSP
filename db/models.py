@@ -38,7 +38,7 @@ class Admin(base):
         teacher_obj = Teacher(teacher_name, teacher_pwd)
         teacher_obj.save()
 
-# 学校类
+# 学校类####
 ####sdsd
 
 class School(base):
@@ -47,8 +47,7 @@ class School(base):
         self.addr = addr
         self.course_list = []   # 学校对应的课程
 
-
-
+#######
 # 课程类
 class Course(base):
     def __init__(self,course_name):
@@ -63,6 +62,30 @@ class Teacher(base):
         self.user = teacher_name
         self.pwd = teacher_pwd
         self.course_list_from_tea = []
+
+    def show(self, teacher_name):
+        return self.course_list_from_tea
+
+    def add_course_interface(self,course_name):
+        self.course_list_from_tea.append(course_name)
+        self.save()
+
+    def get_student(self,course_name):
+        course_obj = Course.select(course_name)
+        return course_obj.student_list
+
+    def show_course(self):
+        return self.course_list_from_tea
+
+    def change_score(self,course_name, student_name, score):
+        student_obj = Student.select(student_name)
+
+        # 2、再给学生对象中的课程修改分数
+        student_obj.score_dict[course_name] = score
+        student_obj.save()
+
+
+
 
 # 学生类
 class Student(base):

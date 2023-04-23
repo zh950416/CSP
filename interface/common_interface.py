@@ -37,3 +37,13 @@ def login_interface(username, password, user_type):
         return True, '用户登陆成功！'
     else:
         return False, '密码错误'
+
+
+def get_course_in_school_interface(school_name):
+    school_obj = models.School.select(school_name)
+
+    course_list = school_obj.course_list
+
+    if not course_list:
+        return  False,'学下没有课程'
+    return True,course_list
