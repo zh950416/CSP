@@ -75,4 +75,15 @@ def create_teacher_interface(teacher_name,admin_name,teacher_pwd='123'):
 
     return  True ,f'[{teacher_name}]老师创建成功'
 
+def create_teacher_interface(teacher_name,teacher_pwd,username):
+    teacher_obj = models.Teacher.select(teacher_name)
+    if teacher_obj:
+        return False, '老师已经存在'
+    admin_obj = models.Admin.select(username)
+    admin_obj.create_teacher(teacher_name,teacher_pwd)
+    return True,f'[{teacher_name}]老师创建成功!'
+
+
+
+
 
